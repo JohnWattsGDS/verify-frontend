@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'controller_helper'
 require 'api_test_helper'
-require 'response_processing_examples'
+require 'support/response_processing_examples'
 
 describe ResponseProcessingController do
   before :each do
@@ -12,6 +12,7 @@ describe ResponseProcessingController do
   include_examples 'response_processing', MatchingOutcomeResponse::GOTO_HUB_LANDING_PAGE, 'Matching Outcome - Hub Landing', :start_path
   include_examples 'response_processing',  MatchingOutcomeResponse::SEND_NO_MATCH_RESPONSE_TO_TRANSACTION, 'Matching Outcome - No Match', :redirect_to_service_signing_in_path
   include_examples 'response_processing',  MatchingOutcomeResponse::SEND_SUCCESSFUL_MATCH_RESPONSE_TO_TRANSACTION, 'Matching Outcome - Match', :redirect_to_service_signing_in_path
+  include_examples 'response_processing',  MatchingOutcomeResponse::SEND_SUCCESSFUL_NON_MATCHING_RESPONSE_TO_TRANSACTION, 'Outcome - Matching Not Used By Service', :redirect_to_service_signing_in_path
   include_examples 'response_processing',  MatchingOutcomeResponse::SEND_USER_ACCOUNT_CREATED_RESPONSE_TO_TRANSACTION, 'Unknown User Outcome - Account Created', :redirect_to_service_signing_in_path
   include_examples 'response_processing',  MatchingOutcomeResponse::GET_C3_DATA, 'Matching Outcome - Cycle3', :further_information_path
 
