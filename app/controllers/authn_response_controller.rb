@@ -97,16 +97,21 @@ private
     end
   end
 
-  def path_for_success(is_registration)
-    is_registration || journey_type?(SINGLE_IDP_JOURNEY_TYPE) ? confirmation_path : response_processing_path
+  def path_for_success(is_registration, status)
+    is_registration || journey_type?(SINGLE_IDP_JOURNEY_TYPE) ? confirmation_path(status) : response_processing_path
+  end
+
+  def path_for_non_matching_success(is_registration, status)
+    is_registration || journey_type?(SINGLE_IDP_JOURNEY_TYPE) ? confirmation_path(status) : redirect_to_service_signing_in_path
   end
 
   def idp_redirects(status, response)
+
     is_registration = response.is_registration
     {
-      SUCCESS => path_for_success(is_registration),
-      MATCHING_JOURNEY_SUCCESS => path_for_success(is_registration),
-      NON_MATCHING_JOURNEY_SUCCESS => path_for_success(is_registration),
+      SUCCESS => path_for_success(is_registration, status),
+      MATCHING_JOURNEY_SUCCESS => path_for_success(is_registration, status),
+      NON_MATCHING_JOURNEY_SUCCESS => path_for_non_matching_success(is_registration, status),
       CANCEL => is_registration ? cancelled_registration_path : start_path,
       FAILED_UPLIFT => failed_uplift_path,
       PENDING => paused_registration_path,
@@ -129,7 +134,7 @@ private
   def country_redirects(status, response)
     is_registration = response.is_registration
     {
-      SUCCESS => is_registration ? confirmation_path : response_processing_path,
+      SUCCESS => is_registration ? confirmation_path(status) : response_processing_path,
       CANCEL => is_registration ? failed_registration_path : start_path,
       FAILED_UPLIFT => failed_uplift_path,
       FAILED => is_registration ? failed_registration_path : failed_country_sign_in_path

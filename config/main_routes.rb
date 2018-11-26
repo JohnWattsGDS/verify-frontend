@@ -21,7 +21,7 @@ constraints IsLoa1 do
   post 'redirect_to_idp_warning', to: 'redirect_to_idp_warning#continue', as: :redirect_to_idp_warning_submit
   get 'redirect_to_idp_warning', to: 'redirect_to_idp_warning#index', as: :redirect_to_idp_warning
   get 'idp_wont_work_for_you_one_doc', to: 'redirect_to_idp_question_loa1#idp_wont_work_for_you', as: :idp_wont_work_for_you_one_doc
-  get 'confirmation', to: 'confirmation_loa1#index', as: :confirmation
+  get 'confirmation/:journey_type', to: 'confirmation_loa1#index', as: :confirmation
   get 'about', to: 'about_loa1#index', as: :about
   get 'about_certified_companies', to: 'about_loa1#certified_companies', as: :about_certified_companies
   get 'about_identity_accounts', to: 'about_loa1#identity_accounts', as: :about_identity_accounts
@@ -62,7 +62,7 @@ constraints IsLoa2 do
   get 'redirect_to_idp_question', to: 'redirect_to_idp_question_loa2#index', as: :redirect_to_idp_question
   post 'redirect_to_idp_question', to: 'redirect_to_idp_question_loa2#continue', as: :redirect_to_idp_question_submit
   get 'idp_wont_work_for_you_one_doc', to: 'redirect_to_idp_question_loa2#idp_wont_work_for_you', as: :idp_wont_work_for_you_one_doc
-  get 'confirmation', to: 'confirmation_loa2#index', as: :confirmation
+  get 'confirmation/:journey_type', to: 'confirmation_loa2#index', as: :confirmation
 end
 
 get 'privacy_notice', to: 'static#privacy_notice', as: :privacy_notice
@@ -98,6 +98,7 @@ get 'paused_registration', to: 'paused_registration#index', as: :paused_registra
 get 'paused_registration_resume_link', to: 'paused_registration#from_resume_link', as: :paused_registration_resume_link
 get 'resume_registration', to: 'paused_registration#resume', as: :resume_registration
 post 'resume_registration', to: 'paused_registration#resume_with_idp', as: :resume_registration_submit
+# get 'journey_confirmation_selector/:journey_type', to: 'journey_confirmation_selector#select_journey', as: :journey_confirmation_selector
 
 if SINGLE_IDP_FEATURE
   get 'redirect_to_single_idp', to: 'redirect_to_idp#single_idp', as: :redirect_to_single_idp

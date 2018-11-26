@@ -26,9 +26,6 @@ class ResponseProcessingController < ApplicationController
     when MatchingOutcomeResponse::USER_ACCOUNT_CREATION_FAILED
       report_to_analytics('Unknown User Outcome - Account Creation Failed')
       render_error_page('ACCOUNT_CREATION_FAILED_PAGE')
-    when MatchingOutcomeResponse::SEND_SUCCESSFUL_NON_MATCHING_RESPONSE_TO_TRANSACTION
-      report_to_analytics('Outcome - Matching Not Used By Service')
-      redirect_to redirect_to_service_signing_in_path
     when MatchingOutcomeResponse::WAIT
       render
     else

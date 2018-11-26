@@ -1,4 +1,4 @@
-shared_examples 'idp_authn_response' do |journey_hint, idp_result, piwik_action, redirect_path|
+shared_examples 'idp_authn_response' do |journey_hint, idp_result, piwik_action, redirect_path, journey_type|
   let(:saml_proxy_api) { double(:saml_proxy_api) }
   let(:selected_entity) {
     {
@@ -22,11 +22,11 @@ shared_examples 'idp_authn_response' do |journey_hint, idp_result, piwik_action,
     allow(subject).to receive(:report_user_outcome_to_piwik).with(idp_result)
     post :idp_response, params: { 'RelayState' => 'my-session-id-cookie', 'SAMLResponse' => 'a-saml-response', locale: 'en' }
     expect(cookies.encrypted[CookieNames::VERIFY_SINGLE_IDP_JOURNEY]).to be_nil
-    expect(subject).to redirect_to(send(redirect_path))
+    expect(subject).to redirect_to(send(redirect_path, idp_result))
   end
 end
 
-shared_examples 'country_authn_response' do |journey_hint, country_result, redirect_path|
+shared_examples 'country_authn_response' do |journey_hint, country_result, redirect_path, journey_type|
   let(:saml_proxy_api) { double(:saml_proxy_api) }
 
   before(:each) do
@@ -37,6 +37,6 @@ shared_examples 'country_authn_response' do |journey_hint, country_result, redir
   it "should redirect to #{redirect_path} on #{country_result}" do
     allow(saml_proxy_api).to receive(:forward_country_authn_response).and_return(CountryAuthnResponse.new('result' => country_result, 'isRegistration' => (journey_hint == 'registration'), 'loaAchieved' => 'LEVEL_1'))
     post :country_response, params: { 'RelayState' => 'my-session-id-cookie', 'SAMLResponse' => 'a-saml-response', locale: 'en' }
-    expect(subject).to redirect_to(send(redirect_path))
+    expect(subject).to redirect_to(send(redirect_path, journey_type))
   end
 end

@@ -5,6 +5,7 @@ class ConfirmationLoa1Controller < ApplicationController
   def index
     @idp_name = IDENTITY_PROVIDER_DISPLAY_DECORATOR.decorate(selected_identity_provider).display_name
     @transaction_name = current_transaction.name
+    @journey_type = params[:journey_type]
 
     render :confirmation_LOA1
   end
