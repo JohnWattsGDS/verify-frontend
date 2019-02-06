@@ -50,7 +50,6 @@ cy:
     redirect_to_service_error: ailgyfeirio-i-gwasanaeth/gwall
     feedback: adborth
     feedback_sent: adborth/adborth-wedi'i-anfon
-    certified_company_unavailable: cwmni-ardystiedig-ddim-ar-gael
     further_information: gwybodaeth-bellach
     further_information_timeout: gwybodaeth-bellach/timeout
     further_information_cancel: gwybodaeth-bellach/dileu
@@ -502,12 +501,7 @@ cy:
     certified_companies_unavailable:
       singular_title: "%{company} is temporarily unavailable with GOV.UK Verify"
       plural_title: These companies are temporarily unavailable with GOV.UK Verify
-      verify_another_company_html: You can try again later or %{link}.
-      verify_another_company_link: verify your identity with another certified company
-      verify_another_company_text: You can try again later or verify your identity with another certified company.
-    certified_company_unavailable:
-      title: Nid yw'r cwmni ardystiedig hwn ar gael
-      sorry: Mae'n ddrwg gennym, nid yw %{display_name} ar gael.
+      verify_another_company_text: Er mwyn cael mynediad i wasanaethau'r llywodraeth, mae'n rhaid i chi ddilysu eich hunaniaeth gyda chwmni ardystiedig arall.
       verify_another_company_html: Er mwyn cael mynediad i wasanaethau'r llywodraeth, mae'n rhaid i chi %{link}.
       verify_another_company_link: ddilysu eich hunaniaeth gyda chwmni ardystiedig arall
     certified_companies_disconnected:

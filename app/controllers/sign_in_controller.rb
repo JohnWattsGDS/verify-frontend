@@ -20,10 +20,6 @@ class SignInController < ApplicationController
       current_temporarily_unavailable_identity_providers_for_sign_in
     )
 
-    @unavailable_identity_providers = IDENTITY_PROVIDER_DISPLAY_DECORATOR.decorate_collection(
-      unavailable_idps.map { |simple_id| IdentityProvider.new('simpleId' => simple_id, 'entityId' => simple_id, 'levelsOfAssurance' => []) }
-    )
-
     @disconnected_idps = IDENTITY_PROVIDER_DISPLAY_DECORATOR.decorate_collection(current_disconnected_identity_providers_for_sign_in)
 
     render :index
@@ -50,10 +46,5 @@ private
     POLICY_PROXY.select_idp(session[:verify_session_id], entity_id, session['requested_loa'], false, analytics_session_id, session[:journey_type])
     set_attempt_journey_hint(entity_id)
     session[:selected_idp_name] = idp_name
-  end
-
-  def unavailable_idps
-    api_idp_simple_ids = current_identity_providers_for_sign_in.map(&:simple_id)
-    UNAVAILABLE_IDPS.reject { |simple_id| api_idp_simple_ids.include?(simple_id) }
   end
 end
