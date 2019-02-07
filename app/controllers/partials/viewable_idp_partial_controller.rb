@@ -40,11 +40,11 @@ module ViewableIdpPartialController
   end
 
   def current_identity_providers_for_sign_in
-    current_all_identity_providers_for_sign_in.select(&:authentication_enabled).reject(&:temporarily_unavailable)
+    current_all_identity_providers_for_sign_in.select(&:authentication_enabled).reject(&:unavailable)
   end
 
-  def current_temporarily_unavailable_identity_providers_for_sign_in
-    current_all_identity_providers_for_sign_in.select(&:temporarily_unavailable)
+  def current_unavailable_identity_providers_for_sign_in
+    current_all_identity_providers_for_sign_in.select(&:unavailable)
   end
 
   def current_disconnected_identity_providers_for_sign_in
